@@ -28,7 +28,7 @@ cd gruppenzeit
 sh scripts/start-android.sh
 ```
 
-Dann im **gleichen Handy** `http://127.0.0.1:3000` im Browser öffnen und den im Termux-Fenster angezeigten Admin-Schlüssel eingeben. Das Skript erzeugt ihn nur beim ersten Start und bewahrt ihn privat im Termux-App-Speicher auf. Für spätere Starts: `cd gruppenzeit && sh scripts/start-android.sh`. Termux muss laufen, während die App benutzt wird. Auf anderen Handys funktioniert `127.0.0.1` nicht als Gruppenlink; dafür braucht die App später einen erreichbaren Server mit HTTPS. Dies ist ein lokaler Funktionstest, kein dauerhafter Gruppenbetrieb.
+Dann im **gleichen Handy** `http://127.0.0.1:3000` im Browser öffnen und die **ganze einzelne Schlüsselzeile** aus Termux eingeben. Das Skript erzeugt einen 32 Zeichen langen Schlüssel nur beim ersten Start und bewahrt ihn privat im Termux-App-Speicher auf. Für spätere Starts: `cd gruppenzeit && sh scripts/start-android.sh`. Falls ein alter Schlüssel teilweise geteilt oder schlecht kopierbar ist: Server mit Strg+C stoppen, `git pull` ausführen und mit `sh scripts/start-android.sh --new-key` einen neuen Schlüssel erzeugen. Der alte wird dadurch ungültig. Termux muss laufen, während die App benutzt wird. Auf anderen Handys funktioniert `127.0.0.1` nicht als Gruppenlink; dafür braucht die App später einen erreichbaren Server mit HTTPS. Dies ist ein lokaler Funktionstest, kein dauerhafter Gruppenbetrieb.
 
 ## Entwicklung
 
