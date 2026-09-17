@@ -1,0 +1,36 @@
+name: Deploy Gruppenzeit to IONOS
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'src/**'
+      - 'public/**'
+      - 'package.json'
+      - '.github/workflows/deploy-ionos.yml'
+  workflow_dispatch:
+
+concurrency:
+  group: gruppenzeit-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    if: github.event_name == 'workflow_dispatch' || vars.GRUPPENZEIT_DEPLOY_ENABLED == 'true'
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.IONOS_HOST }}
+          username: ${{ secrets.IONOS_USER }}
+          key: ${{ secrets.IONOS_SSH_KEY }}
+          port: ${{ secrets.IONOS_SSH_PORT || 22 }}
+          script: |
+            set -eu
+            sudo -u gruppenzeit git -C /opt/gruppenzeit pull --ff-only origin main
+            sudo systemctl restart gruppenzeit
+            sleep 2
+            systemctl is-active --quiet gruppenzeit
+            test "$(curl -s -o /dev/null -w '%{http_code}' http://127.0.0.1:3001/)" = 200
+            test "$(curl -s -o /dev/null -w '%{http_code}' http://127.0.0.1:3001/api/me)" = 401

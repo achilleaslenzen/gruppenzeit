@@ -1,0 +1,24 @@
+[Unit]
+Description=Gruppenzeit calendar
+After=network.target
+
+[Service]
+Type=simple
+User=gruppenzeit
+Group=gruppenzeit
+WorkingDirectory=/opt/gruppenzeit
+EnvironmentFile=/etc/gruppenzeit/gruppenzeit.env
+ExecStart=/usr/bin/node /opt/gruppenzeit/src/server.js
+Restart=on-failure
+RestartSec=5
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectHome=true
+ProtectSystem=strict
+ReadWritePaths=/var/lib/gruppenzeit
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=gruppenzeit
+
+[Install]
+WantedBy=multi-user.target

@@ -37,3 +37,5 @@ npm test
 ```
 
 Architektur und Qualitätsziele: [ARC42.md](ARC42.md). Fachverhalten: [features/gruppenkalender.feature](features/gruppenkalender.feature). Der lokale Datenspeicher enthält Namen und Antworten; regelmäßige gesicherte Backups der SQLite-Datei und ein gelegentlicher Restore-Test sind für einen produktiven Betrieb nötig.
+
+Für die Bereitstellung neben Gulasch ERP auf dem bestehenden IONOS-Server: [docs/DEPLOYMENT-IONOS.md](docs/DEPLOYMENT-IONOS.md). Die vorgesehenen Adressen sind `termin.gulasch.info` (HTTPS) und intern `127.0.0.1:3001`.
