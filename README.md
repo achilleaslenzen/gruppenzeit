@@ -16,6 +16,20 @@ npm start
 
 `PORT` setzt den Port (Standard 3000), `HOST` die Bind-Adresse (Standard 127.0.0.1). Die App verschickt keine Nachrichten oder Push-Benachrichtigungen; Mitglieder sehen neue Anfragen beim Öffnen. Sie ist nicht veröffentlicht oder gehostet.
 
+## Direkt auf Android testen
+
+Mit [Termux](https://termux.dev/) läuft der Node-Server auf dem Handy selbst. Nach Installation von Termux dort eingeben:
+
+```sh
+pkg update
+pkg install nodejs git
+git clone https://github.com/achilleaslenzen/gruppenzeit.git
+cd gruppenzeit
+sh scripts/start-android.sh
+```
+
+Dann im **gleichen Handy** `http://127.0.0.1:3000` im Browser öffnen und den im Termux-Fenster angezeigten Admin-Schlüssel eingeben. Das Skript erzeugt ihn nur beim ersten Start und bewahrt ihn privat im Termux-App-Speicher auf. Für spätere Starts: `cd gruppenzeit && sh scripts/start-android.sh`. Termux muss laufen, während die App benutzt wird. Auf anderen Handys funktioniert `127.0.0.1` nicht als Gruppenlink; dafür braucht die App später einen erreichbaren Server mit HTTPS. Dies ist ein lokaler Funktionstest, kein dauerhafter Gruppenbetrieb.
+
 ## Entwicklung
 
 ```bash

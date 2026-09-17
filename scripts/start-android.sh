@@ -1,0 +1,20 @@
+#!/bin/sh
+set -eu
+cd "$(dirname "$0")/.."
+if ! node -e "import('node:sqlite')" >/dev/null 2>&1; then
+  echo 'Diese Node.js-Version unterstützt node:sqlite nicht. Bitte Termux/Node.js aktualisieren.' >&2
+  exit 1
+fi
+config_dir="$HOME/.config/gruppenzeit"
+key_file="$config_dir/admin-token"
+umask 077
+mkdir -p "$config_dir"
+if [ ! -s "$key_file" ]; then
+  node -e "process.stdout.write(require('node:crypto').randomBytes(32).toString('hex'))" > "$key_file"
+fi
+ADMIN_TOKEN="$(cat "$key_file")"
+export ADMIN_TOKEN
+echo 'Öffne auf diesem Handy: http://127.0.0.1:3000'
+echo "Admin-Schlüssel: $ADMIN_TOKEN"
+echo 'Termux geöffnet lassen. Zum Beenden Strg+C drücken.'
+npm start
